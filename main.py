@@ -1,6 +1,8 @@
 import urllib.parse
+import requests
 from flask import Flask, request, make_response, redirect, render_template
 from quickchart import QuickChart
+from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 
@@ -39,6 +41,7 @@ def hello_world():
 @app.route('/hello/')
 def hello():
     # return render_template('hello.html', name=name)
-    url = "https://quickchart.io/qr?text="+safe_string+"&"+vc14+"&"+vc15
+    url = "https://quickchart.io/qr?text="+safe_string+"&"+vc14
+
     # print(ur l)
     return render_template('hello.html', url=url)
