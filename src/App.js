@@ -3,45 +3,32 @@ import { useState, useEffect, useRef } from "react";
 import {
 	Button,
 	ButtonGroup,
-	// Form,
-	// Field,
+	Card,
+	CardHeader,
+	CardBody,
+	CardFooter,
+	VStack,
 	Input,
 	InputGroup,
 	InputLeftAddon,
 	InputLeftElement,
+	Modal,
+	ModalOverlay,
+	ModalContent,
+	ModalHeader,
+	ModalFooter,
+	ModalBody,
+	ModalCloseButton,
 	FormControl,
 	FormLabel,
 	FormErrorMessage,
 	FormHelperText,
+	useDisclosure
   } from '@chakra-ui/react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import html2canvas from 'html2canvas';
-import logo from './logo.svg';
 import './App.css';
 
-function qr2(){
-	let vc2 = "BEGIN:VCARD"
-	let vc3 = "N:Heinemann;Rodolfodd"
-	let vc4 = "FN:Rodolfo Heinemann"
-	let vc5 = "ORG:CENDIS"
-	let vc6 = "TITLE:Director General"
-	let vc7 = "ADR:;;2a Calle 9-15;Zona 10;CA;Edificio Mira Of. 101;Guatemala, Guatemala"
-	let vc8 = "TEL;WORK;VOICE:+502 23795300"
-	let vc9 = "TEL;CELL:+502 54035000"
-	let vc10 = "TEL;MAIN:+502 23795303"
-	let vc11 = "EMAIL;WORK;INTERNET:rodolfoh@centrodistribuidor.com"
-	let vc12 = "URL:https://cendis.com.gt"
-	let vc13 = "END:VCARD"
-	let vc14 = "dark=001E61"
-
-	let vc = vc2 + "\n" + vc3 + "\n" + vc4 + "\n" + vc5 + "\n" + vc6 + "\n" + vc7 + "\n" + vc8 + "\n" + vc9 + "\n" + vc10 + "\n" + vc11 + "\n" + vc12 + "\n" + vc13
-
-	console.log(vc)
-
-	console.log(encodeURIComponent(vc))
-	return "https://quickchart.io/qr?text=" + encodeURIComponent(vc) + "&" + vc14
-
-}
 
 function vcard(name, surname, organization, position, email, phone1, phone2){
 	let vc2 = "BEGIN:VCARD"
@@ -60,10 +47,7 @@ function vcard(name, surname, organization, position, email, phone1, phone2){
 
 	let vc = vc2 + "\n" + vc3 + "\n" + vc4 + "\n" + vc5 + "\n" + vc6 + "\n" + vc7 + "\n" + vc8 + "\n" + vc9 + "\n" + vc10 + "\n" + vc11 + "\n" + vc12 + "\n" + vc13
 
-	// console.log(vc3)
-	// console.log(vc)
 
-	console.log(encodeURIComponent(vc))
 	return "https://quickchart.io/qr?text=" + encodeURIComponent(vc) + "&" + vc14
 
 }
@@ -72,6 +56,12 @@ const App = () => {
 	const printRef = useRef();
 	const [url, setUrl] = useState(false);
 	const [qr, setQr] = useState("");
+	const [name, setName] = useState("");
+	const [position, setPosition] = useState("");
+	const [phone, setPhone] = useState("");
+	const [phone2, setPhone2] = useState("");
+	const [email, setEmail] = useState("");
+	const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: true })
 
 	const handleDownloadImage = async () => {
 		const element = printRef.current;
@@ -108,27 +98,17 @@ const App = () => {
 	
 	return (
 	<div className="App">
-		{/* <header className="App-header">
-		<img src={logo} className="App-logo" alt="logo" />
-		<p>
-			Edit <code>src/App.js</code> and save to reload. 
-		</p>
-		<a
-			className="App-link"
-			href="https://reactjs.org"
-			target="_blank"
-			rel="noopener noreferrer"
-		>
-			Learn React
-		</a>
-		</header> */}
-
 		<Formik
 			initialValues={{ name: '' }}
 			onSubmit={(values, actions) => {
 				setTimeout(() => {
 					alert(JSON.stringify(values, null, 2))
 					setQr(vcard(values.name, values.surname, values.organization, values.position, values.email, values.phone, values.phone2))
+					setName(values.name + " " + values.surname)
+					setPosition(values.position)
+					setEmail(values.email)
+					setPhone(values.phone)
+					setPhone2(values.phone2)
 					actions.setSubmitting(false)
 					setUrl(true)
 				}, 1000)
@@ -136,92 +116,96 @@ const App = () => {
 		>
 			{(props) => (
 				<Form>
-					<Field name='name' validate={validateName}>
-						{({ field, form }) => (
-						<FormControl isInvalid={form.errors.name && form.touched.name}>
-							<FormLabel>Nombre</FormLabel>
-							<Input {...field} placeholder='Nombre' />
-							<FormErrorMessage>{form.errors.name}</FormErrorMessage>
-						</FormControl>
-						)}
-					</Field>
+					<Card variant={'filled'}>
+						<CardBody>
+							<VStack spacing='2vh'>
+								<Field name='name' validate={validateName}>
+									{({ field, form }) => (
+									<FormControl isInvalid={form.errors.name && form.touched.name}>
+										<FormLabel>Nombre</FormLabel>
+										<Input {...field} placeholder='Nombre' />
+										<FormErrorMessage>{form.errors.name}</FormErrorMessage>
+									</FormControl>
+									)}
+								</Field>
 
-					<Field name='surname' validate={validateName}>
-						{({ field, form }) => (
-						<FormControl isInvalid={form.errors.name && form.touched.name}>
-							<FormLabel>Apellido</FormLabel>
-							<Input {...field} placeholder='Apellido' />
-							<FormErrorMessage>{form.errors.name}</FormErrorMessage>
-						</FormControl>
-						)}
-					</Field>
+								<Field name='surname' validate={validateName}>
+									{({ field, form }) => (
+									<FormControl isInvalid={form.errors.name && form.touched.name}>
+										<FormLabel>Apellido</FormLabel>
+										<Input {...field} placeholder='Apellido' />
+										<FormErrorMessage>{form.errors.name}</FormErrorMessage>
+									</FormControl>
+									)}
+								</Field>
 
-					<Field name='organization' validate={validateName}>
-						{({ field, form }) => (
-						<FormControl isInvalid={form.errors.name && form.touched.name}>
-							<FormLabel>Organización</FormLabel>
-							<Input {...field} placeholder='Cendis/Servir' />
-							<FormErrorMessage>{form.errors.name}</FormErrorMessage>
-						</FormControl>
-						)}
-					</Field>
+								<Field name='organization' validate={validateName}>
+									{({ field, form }) => (
+									<FormControl isInvalid={form.errors.name && form.touched.name}>
+										<FormLabel>Organización</FormLabel>
+										<Input {...field} placeholder='Cendis/Servir' />
+										<FormErrorMessage>{form.errors.name}</FormErrorMessage>
+									</FormControl>
+									)}
+								</Field>
 
-					<Field name='position' validate={validateName}>
-						{({ field, form }) => (
-						<FormControl isInvalid={form.errors.name && form.touched.name}>
-							<FormLabel>Cargo</FormLabel>
-							<Input {...field} placeholder='Cargo dentro la empresa' />
-							<FormErrorMessage>{form.errors.name}</FormErrorMessage>
-						</FormControl>
-						)}
-					</Field>
+								<Field name='position' validate={validateName}>
+									{({ field, form }) => (
+									<FormControl isInvalid={form.errors.name && form.touched.name}>
+										<FormLabel>Cargo</FormLabel>
+										<Input {...field} placeholder='Cargo dentro la empresa' />
+										<FormErrorMessage>{form.errors.name}</FormErrorMessage>
+									</FormControl>
+									)}
+								</Field>
 
-					<Field name='email' validate={validateName}>
-						{({ field, form }) => (
-						<FormControl isInvalid={form.errors.name && form.touched.name}>
-							<FormLabel>Email</FormLabel>
-							<Input {...field} placeholder='Correo electrónico' />
-							<FormErrorMessage>{form.errors.name}</FormErrorMessage>
-						</FormControl>
-						)}
-					</Field>
+								<Field name='email' validate={validateName}>
+									{({ field, form }) => (
+									<FormControl isInvalid={form.errors.name && form.touched.name}>
+										<FormLabel>Email</FormLabel>
+										<Input {...field} placeholder='Correo electrónico' />
+										<FormErrorMessage>{form.errors.name}</FormErrorMessage>
+									</FormControl>
+									)}
+								</Field>
 
-					<Field name='phone' validate={validateName}>
-						{({ field, form }) => (
-						<FormControl isInvalid={form.errors.name && form.touched.name}>
-							<FormLabel>Teléfono</FormLabel>
-							{/* <Input {...field} placeholder='Teléfono principal' /> */}
-							<InputGroup>
-								<InputLeftAddon children='+502' />
-								<Input {...field} placeholder='Teléfono principal'  type='tel' />
-							</InputGroup>
-							<FormErrorMessage>{form.errors.name}</FormErrorMessage>
-						</FormControl>
-						)}
-					</Field>
+								<Field name='phone' validate={validateName}>
+									{({ field, form }) => (
+									<FormControl isInvalid={form.errors.name && form.touched.name}>
+										<FormLabel>Teléfono</FormLabel>						
+										<InputGroup>
+											<InputLeftAddon children='+502' />
+											<Input {...field} placeholder='Teléfono principal'  type='tel' />
+										</InputGroup>
+										<FormErrorMessage>{form.errors.name}</FormErrorMessage>
+									</FormControl>
+									)}
+								</Field>
 
-					<Field name='phone2' validate={validateName}>
-						{({ field, form }) => (
-						<FormControl isInvalid={form.errors.name && form.touched.name}>
-							<FormLabel>Teléfono 2</FormLabel>
-							{/* <Input {...field} placeholder='Teléfono principal' /> */}
-							<InputGroup>
-								<InputLeftAddon children='+502' />
-								<Input {...field} placeholder='Teléfono trabajo'  type='tel' />
-							</InputGroup>
-							<FormErrorMessage>{form.errors.name}</FormErrorMessage>
-						</FormControl>
-						)}
-					</Field>
+								<Field name='phone2' validate={validateName}>
+									{({ field, form }) => (
+									<FormControl isInvalid={form.errors.name && form.touched.name}>
+										<FormLabel>Teléfono 2</FormLabel>
+										<InputGroup>
+											<InputLeftAddon children='+502' />
+											<Input {...field} placeholder='Teléfono trabajo'  type='tel' />
+										</InputGroup>
+										<FormErrorMessage>{form.errors.name}</FormErrorMessage>
+									</FormControl>
+									)}
+								</Field>
 
-					<Button
-						mt={4}
-						colorScheme='teal'
-						isLoading={props.isSubmitting}
-						type='submit'
-					>
-						Generar QR
-					</Button>
+								<Button
+									mt={4}
+									colorScheme='teal'
+									isLoading={props.isSubmitting}
+									type='submit'
+								>
+									Generar QR
+								</Button>
+							</VStack>
+						</CardBody>
+					</Card>
 				</Form>
 			)}
 		</Formik>
@@ -229,14 +213,57 @@ const App = () => {
 		{
 			url ? 
 				<>
-					<div ref={printRef}>
-						<p>Hello</p>
-						<img src={qr} />
-						<p>Test</p>
-					</div>
-					<Button type="button" onClick={handleDownloadImage}>
-						Descargar
-					</Button>
+					<Button onClick={onOpen}>Open Modal</Button>
+
+					<Modal isOpen={isOpen} onClose={onClose}>
+						<ModalOverlay />
+						<ModalContent>
+							<ModalHeader>
+								Header
+								
+							</ModalHeader>
+							<ModalCloseButton />
+							<ModalBody>
+								asadasdasdfasfaf
+								<div ref={printRef} className='vcard'>
+									<div className='organizationTitle'>
+
+									</div>
+
+									<div className='person'>
+										<p className='pName'>{name}</p>
+										<p className='pPosition'>{position}</p>
+									</div>
+
+									<div className='contact'>
+										<p>{phone}</p>
+										<p>{phone2}</p>
+										<p>{email}</p>
+									</div>
+
+									<div className='qr'>
+										<img src={qr} />
+									</div>
+
+									<div className='footer'>
+										<p>
+											cendis.com.gt
+										</p>
+									</div>
+								</div>
+							</ModalBody>
+
+							<ModalFooter>
+								{/* <Button colorScheme='blue' mr={3} onClick={onClose}>
+									Close
+								</Button> */}
+								<Button colorScheme='blue' mr={3} onClick={handleDownloadImage}>
+									Descargar VCard
+								</Button>
+								<Button variant='ghost'>Descargar QR</Button>
+							</ModalFooter>
+						</ModalContent>
+					</Modal>
 				</>
 			: <></>
 		}

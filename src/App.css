@@ -36,3 +36,63 @@
     transform: rotate(360deg);
   }
 }
+
+.vcard {
+  background-color: #c4cad7;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.organizationTitle {
+  background-color: #001E61;
+  width: 80%;
+  height: 10vh;
+  border-radius: 0 0 10px 10px;
+  margin-bottom: 8%;
+}
+
+.person {
+  /* background-color: #FCC62A; */
+  width: 88%;
+}
+
+.pName {
+  font-size: 25px;
+  font-weight: bold;
+  color: #001E61;
+}
+
+.pPosition {
+  color: #001E61;
+  font-size: 18px;
+}
+
+.contact {
+  margin-top: 10%;
+  width: 88%;
+  font-size: 18px;
+  color: #001E61;
+}
+
+.qr {
+  border: 3px solid #FCC62A;
+  border-radius: 5px;
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
+
+.footer {
+  background-color: #001E61;
+  width: 80%;
+  height: 7vh;
+  border-radius: 10px 10px 0 0;
+  color: #FCC62A;
+  font-weight: 500;
+  font-size: 20px;
+  padding-top: 5%;
+  text-align: center;
+
+}
