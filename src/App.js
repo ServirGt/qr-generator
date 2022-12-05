@@ -19,7 +19,7 @@ import html2canvas from 'html2canvas';
 import logo from './logo.svg';
 import './App.css';
 
-function qr(){
+function qr2(){
 	let vc2 = "BEGIN:VCARD"
 	let vc3 = "N:Heinemann;Rodolfodd"
 	let vc4 = "FN:Rodolfo Heinemann"
@@ -43,9 +43,36 @@ function qr(){
 
 }
 
+function vcard(name, surname, organization, position, email, phone1, phone2){
+	let vc2 = "BEGIN:VCARD"
+	let vc3 = `N:${surname};${name}`
+	let vc4 = `FN:${name} ${surname}`
+	let vc5 = `ORG:${organization}`
+	let vc6 = `TITLE:${position}`
+	let vc7 = "ADR:;;2a Calle 9-15;Zona 10;CA;Edificio Mira Of. 101;Guatemala, Guatemala"
+	let vc8 = `TEL;WORK;VOICE:+502 ${phone1}`
+	let vc9 = `TEL;CELL:+502 ${phone2}`
+	let vc10 = "TEL;MAIN:+502 23795303"
+	let vc11 = `EMAIL;WORK;INTERNET:${email}`
+	let vc12 = "URL:https://cendis.com.gt"
+	let vc13 = "END:VCARD"
+	let vc14 = "dark=001E61"
+
+	let vc = vc2 + "\n" + vc3 + "\n" + vc4 + "\n" + vc5 + "\n" + vc6 + "\n" + vc7 + "\n" + vc8 + "\n" + vc9 + "\n" + vc10 + "\n" + vc11 + "\n" + vc12 + "\n" + vc13
+
+	// console.log(vc3)
+	// console.log(vc)
+
+	console.log(encodeURIComponent(vc))
+	return "https://quickchart.io/qr?text=" + encodeURIComponent(vc) + "&" + vc14
+
+}
+
 const App = () => {
 	const printRef = useRef();
-	let qrCode = qr()
+	const [url, setUrl] = useState(false);
+	const [qr, setQr] = useState("");
+
 	const handleDownloadImage = async () => {
 		const element = printRef.current;
 		const canvas = await html2canvas(element,  { useCORS: true });
@@ -101,7 +128,9 @@ const App = () => {
 			onSubmit={(values, actions) => {
 				setTimeout(() => {
 					alert(JSON.stringify(values, null, 2))
+					setQr(vcard(values.name, values.surname, values.organization, values.position, values.email, values.phone, values.phone2))
 					actions.setSubmitting(false)
+					setUrl(true)
 				}, 1000)
 			}}
 		>
@@ -197,15 +226,30 @@ const App = () => {
 			)}
 		</Formik>
 
-		<div ref={printRef}>
+		{
+			url ? 
+				<>
+					<div ref={printRef}>
+						<p>Hello</p>
+						<img src={qr} />
+						<p>Test</p>
+					</div>
+					<Button type="button" onClick={handleDownloadImage}>
+						Descargar
+					</Button>
+				</>
+			: <></>
+		}
+
+		{/* <div ref={printRef}>
 			<p>Hello</p>
 			<img src={qrCode} />
 			<p>Test</p>
-		</div>
+		</div> */}
 
-		<Button type="button" onClick={handleDownloadImage}>
+		{/* <Button type="button" onClick={handleDownloadImage}>
         	Descargar
-      	</Button>
+      	</Button> */}
 	</div>
   );
 }
