@@ -1,6 +1,20 @@
 import React from 'react';
 import { useState, useEffect, useRef } from "react";
-import { Button, ButtonGroup } from '@chakra-ui/react'
+import {
+	Button,
+	ButtonGroup,
+	// Form,
+	// Field,
+	Input,
+	InputGroup,
+	InputLeftAddon,
+	InputLeftElement,
+	FormControl,
+	FormLabel,
+	FormErrorMessage,
+	FormHelperText,
+  } from '@chakra-ui/react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import html2canvas from 'html2canvas';
 import logo from './logo.svg';
 import './App.css';
@@ -49,14 +63,25 @@ const App = () => {
 		} else {
 			window.open(data);
 		}
-	  };
+	};
+
+
+	function validateName(value) {
+		let error
+		if (!value) {
+			error = 'Este campo es requerido'
+		} // else if (value.toLowerCase() !== 'naruto') {
+		// 	error = "Jeez! You're not a fan 😱"
+		// }
+		return error
+	}
 
 	
 
 	
 	return (
 	<div className="App">
-		<header className="App-header">
+		{/* <header className="App-header">
 		<img src={logo} className="App-logo" alt="logo" />
 		<p>
 			Edit <code>src/App.js</code> and save to reload. 
@@ -69,7 +94,108 @@ const App = () => {
 		>
 			Learn React
 		</a>
-		</header>
+		</header> */}
+
+		<Formik
+			initialValues={{ name: '' }}
+			onSubmit={(values, actions) => {
+				setTimeout(() => {
+					alert(JSON.stringify(values, null, 2))
+					actions.setSubmitting(false)
+				}, 1000)
+			}}
+		>
+			{(props) => (
+				<Form>
+					<Field name='name' validate={validateName}>
+						{({ field, form }) => (
+						<FormControl isInvalid={form.errors.name && form.touched.name}>
+							<FormLabel>Nombre</FormLabel>
+							<Input {...field} placeholder='Nombre' />
+							<FormErrorMessage>{form.errors.name}</FormErrorMessage>
+						</FormControl>
+						)}
+					</Field>
+
+					<Field name='surname' validate={validateName}>
+						{({ field, form }) => (
+						<FormControl isInvalid={form.errors.name && form.touched.name}>
+							<FormLabel>Apellido</FormLabel>
+							<Input {...field} placeholder='Apellido' />
+							<FormErrorMessage>{form.errors.name}</FormErrorMessage>
+						</FormControl>
+						)}
+					</Field>
+
+					<Field name='organization' validate={validateName}>
+						{({ field, form }) => (
+						<FormControl isInvalid={form.errors.name && form.touched.name}>
+							<FormLabel>Organización</FormLabel>
+							<Input {...field} placeholder='Cendis/Servir' />
+							<FormErrorMessage>{form.errors.name}</FormErrorMessage>
+						</FormControl>
+						)}
+					</Field>
+
+					<Field name='position' validate={validateName}>
+						{({ field, form }) => (
+						<FormControl isInvalid={form.errors.name && form.touched.name}>
+							<FormLabel>Cargo</FormLabel>
+							<Input {...field} placeholder='Cargo dentro la empresa' />
+							<FormErrorMessage>{form.errors.name}</FormErrorMessage>
+						</FormControl>
+						)}
+					</Field>
+
+					<Field name='email' validate={validateName}>
+						{({ field, form }) => (
+						<FormControl isInvalid={form.errors.name && form.touched.name}>
+							<FormLabel>Email</FormLabel>
+							<Input {...field} placeholder='Correo electrónico' />
+							<FormErrorMessage>{form.errors.name}</FormErrorMessage>
+						</FormControl>
+						)}
+					</Field>
+
+					<Field name='phone' validate={validateName}>
+						{({ field, form }) => (
+						<FormControl isInvalid={form.errors.name && form.touched.name}>
+							<FormLabel>Teléfono</FormLabel>
+							{/* <Input {...field} placeholder='Teléfono principal' /> */}
+							<InputGroup>
+								<InputLeftAddon children='+502' />
+								<Input {...field} placeholder='Teléfono principal'  type='tel' />
+							</InputGroup>
+							<FormErrorMessage>{form.errors.name}</FormErrorMessage>
+						</FormControl>
+						)}
+					</Field>
+
+					<Field name='phone2' validate={validateName}>
+						{({ field, form }) => (
+						<FormControl isInvalid={form.errors.name && form.touched.name}>
+							<FormLabel>Teléfono 2</FormLabel>
+							{/* <Input {...field} placeholder='Teléfono principal' /> */}
+							<InputGroup>
+								<InputLeftAddon children='+502' />
+								<Input {...field} placeholder='Teléfono trabajo'  type='tel' />
+							</InputGroup>
+							<FormErrorMessage>{form.errors.name}</FormErrorMessage>
+						</FormControl>
+						)}
+					</Field>
+
+					<Button
+						mt={4}
+						colorScheme='teal'
+						isLoading={props.isSubmitting}
+						type='submit'
+					>
+						Generar QR
+					</Button>
+				</Form>
+			)}
+		</Formik>
 
 		<div ref={printRef}>
 			<p>Hello</p>
