@@ -54,6 +54,7 @@ function vcard(name, surname, organization, position, email, phone1, phone2){
 
 const App = () => {
 	const printRef = useRef();
+	const printRefQR = useRef();
 	const [url, setUrl] = useState(false);
 	const [qr, setQr] = useState("");
 	const [name, setName] = useState("");
@@ -65,6 +66,26 @@ const App = () => {
 
 	const handleDownloadImage = async () => {
 		const element = printRef.current;
+		const canvas = await html2canvas(element,  { useCORS: true });
+	
+		const data = canvas.toDataURL('image/jpg');
+		const link = document.createElement('a');
+	
+		if (typeof link.download === 'string') {
+			link.href = data;
+			link.download = 'image.jpg';
+	
+			document.body.appendChild(link);
+			link.click();
+			document.body.removeChild(link);
+		} else {
+			window.open(data);
+		}
+	};
+
+
+	const handleDownloadQR = async () => {
+		const element = printRefQR.current;
 		const canvas = await html2canvas(element,  { useCORS: true });
 	
 		const data = canvas.toDataURL('image/jpg');
@@ -242,7 +263,7 @@ const App = () => {
 									</div>
 
 									<div className='qr'>
-										<img src={qr} />
+										<img src={qr} ref={printRefQR}/>
 									</div>
 
 									<div className='footer'>
@@ -260,7 +281,7 @@ const App = () => {
 								<Button colorScheme='blue' mr={3} onClick={handleDownloadImage}>
 									Descargar VCard
 								</Button>
-								<Button variant='ghost'>Descargar QR</Button>
+								<Button variant='ghost' onClick={handleDownloadQR}>Descargar QR</Button>
 							</ModalFooter>
 						</ModalContent>
 					</Modal>
