@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect, useRef } from "react";
+import { Button, ButtonGroup } from '@chakra-ui/react'
 import html2canvas from 'html2canvas';
 import logo from './logo.svg';
 import './App.css';
@@ -76,9 +77,9 @@ const App = () => {
 			<p>Test</p>
 		</div>
 
-		<button type="button" onClick={handleDownloadImage}>
-        	Download as Image
-      	</button>
+		<Button type="button" onClick={handleDownloadImage}>
+        	Descargar
+      	</Button>
 	</div>
   );
 }
