@@ -7,7 +7,9 @@ import {
 	CardHeader,
 	CardBody,
 	CardFooter,
+	Container,
 	VStack,
+	Stack,
 	Input,
 	InputGroup,
 	InputLeftAddon,
@@ -23,11 +25,16 @@ import {
 	FormLabel,
 	FormErrorMessage,
 	FormHelperText,
-	useDisclosure
+	useDisclosure,
+	Text,
+	Heading,
+	Select
   } from '@chakra-ui/react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import html2canvas from 'html2canvas';
+import logoCendis from './logoCendis.png'
 import './App.css';
+import styles from './App.css';
 
 
 function vcard(name, surname, organization, position, email, phone1, phone2){
@@ -51,6 +58,7 @@ function vcard(name, surname, organization, position, email, phone1, phone2){
 	return "https://quickchart.io/qr?text=" + encodeURIComponent(vc) + "&" + vc14
 
 }
+
 
 const App = () => {
 	const printRef = useRef();
@@ -118,7 +126,7 @@ const App = () => {
 
 	
 	return (
-	<div className="App">
+	<div className = { styles }>
 		<Formik
 			initialValues={{ name: '' }}
 			onSubmit={(values, actions) => {
@@ -136,9 +144,16 @@ const App = () => {
 			}}
 		>
 			{(props) => (
-				<Form>
-					<Card variant={'filled'}>
-						<CardBody>
+				<Form className='formContainer'>
+					<Container align='center' className='cardContainer'>
+						{/* <CardHeader> */}
+						<Stack spacing='3vh'>
+							<Stack spacing='1vh'>
+								<Heading size='lg'>Generación de tarjeta virtual</Heading>
+								<Text size='md'>Por favor complete todos los campos para poder generar el QR.</Text>
+							</Stack>
+						{/* </CardHeader> */}
+						{/* <CardBody> */}
 							<VStack spacing='2vh'>
 								<Field name='name' validate={validateName}>
 									{({ field, form }) => (
@@ -164,7 +179,24 @@ const App = () => {
 									{({ field, form }) => (
 									<FormControl isInvalid={form.errors.name && form.touched.name}>
 										<FormLabel>Organización</FormLabel>
-										<Input {...field} placeholder='Cendis/Servir' />
+										<Select {...field} placeholder='Organización'>
+											<option value='Cendis'>Cendis</option>
+											<option value='Servir'>Servir</option>
+										</Select>
+										<FormErrorMessage>{form.errors.name}</FormErrorMessage>
+									</FormControl>
+									)}
+								</Field>
+
+								<Field name='campus' validate={validateName}>
+									{({ field, form }) => (
+									<FormControl isInvalid={form.errors.name && form.touched.name}>
+										<FormLabel>Sede</FormLabel>
+										<Select {...field} placeholder='Seleccione su sede'>
+											<option value='Mira'>Mira</option>
+											<option value='Granat'>Granat</option>
+											<option value='Almacén'>Almacén</option>
+										</Select>
 										<FormErrorMessage>{form.errors.name}</FormErrorMessage>
 									</FormControl>
 									)}
@@ -225,8 +257,9 @@ const App = () => {
 									Generar QR
 								</Button>
 							</VStack>
-						</CardBody>
-					</Card>
+						</Stack>
+						{/* </CardBody> */}
+					</Container>
 				</Form>
 			)}
 		</Formik>
@@ -248,6 +281,7 @@ const App = () => {
 								asadasdasdfasfaf
 								<div ref={printRef} className='vcard'>
 									<div className='organizationTitle'>
+										{/* <img src={logoCendis} /> */}
 
 									</div>
 

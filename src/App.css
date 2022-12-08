@@ -1,40 +1,38 @@
-.App {
-  text-align: center;
+html, body {
+  width: 100% !important;
+  height:100% !important;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  background: linear-gradient(-45deg, #001E61, #ADC7FF, #FCC62A, #FDE59B) !important;
+  background-size: 400% 400% !important;
+  animation: gradient 15s ease infinite !important;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.formContainer {
+  margin-top: 2.5vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-content: center;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.cardContainer {
+  padding: 1% 0;
+  border-radius: 10px;
+  background-color: rgba(247, 247, 255);
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 .vcard {
@@ -96,3 +94,5 @@
   text-align: center;
 
 }
+
+
