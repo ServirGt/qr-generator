@@ -28,32 +28,39 @@ import {
 import { Formik, Form, Field } from 'formik';
 import html2canvas from 'html2canvas';
 import { MdEmail, MdOutlinePhoneIphone, MdLocalPhone } from 'react-icons/md'
-import { ImPhone } from 'react-icons/im'
-import { FaPhoneSquareAlt } from 'react-icons/fa'
 import logoCendis from './logoCendis.png'
 import './App.css';
 import styles from './App.css';
 
 
-function vcard(name, surname, organization, position, email, phone1, phone2){
+function vcard(name, surname, organization, position, address, email, phone1, phone2){
 	let vc2 = "BEGIN:VCARD"
 	let vc3 = `N:${surname};${name}`
 	let vc4 = `FN:${name} ${surname}`
 	let vc5 = `ORG:${organization}`
 	let vc6 = `TITLE:${position}`
-	let vc7 = "ADR:;;2a Calle 9-15;Zona 10;CA;Edificio Mira Of. 101;Guatemala, Guatemala"
+	let vc7 = ''
+	if (address === 'Mira'){
+		vc7 = "ADR:;;2a Calle 9-15;Zona 10;CA;Edificio Mira Of. 101;Guatemala, Guatemala"
+	} else if (address === 'Granat'){
+		vc7 = "ADR:;;Ruta 4, 6-32;Zona 4;CA;Edificio Granat Of. 604;Guatemala, Guatemala"
+	} else {
+		vc7 = "ADR:;;Ruta 5, 1-40;Zona 4;Guatemala, Guatemala"
+	}
+	// let vc7 = "ADR:;;2a Calle 9-15;Zona 10;CA;Edificio Mira Of. 101;Guatemala, Guatemala"
 	let vc8 = `TEL;WORK;VOICE:+502 ${phone1}`
 	let vc9 = `TEL;CELL:+502 ${phone2}`
-	let vc10 = "TEL;MAIN:+502 23795303"
+	// let vc10 = "TEL;MAIN:+502 23795303"
 	let vc11 = `EMAIL;WORK;INTERNET:${email}`
 	let vc12 = "URL:https://cendis.com.gt"
 	let vc13 = "END:VCARD"
 	let vc14 = "dark=001E61"
+	let vc15 = "size=400"
 
-	let vc = vc2 + "\n" + vc3 + "\n" + vc4 + "\n" + vc5 + "\n" + vc6 + "\n" + vc7 + "\n" + vc8 + "\n" + vc9 + "\n" + vc10 + "\n" + vc11 + "\n" + vc12 + "\n" + vc13
+	let vc = vc2 + "\n" + vc3 + "\n" + vc4 + "\n" + vc5 + "\n" + vc6 + "\n" + vc7 + "\n" + vc8 + "\n" + vc9 + "\n" + vc11 + "\n" + vc12 + "\n" + vc13
 
-
-	return "https://quickchart.io/qr?text=" + encodeURIComponent(vc) + "&" + vc14
+	console.log("https://quickchart.io/qr?text=" + encodeURIComponent(vc) + "&" + vc14)
+	return "https://quickchart.io/qr?text=" + encodeURIComponent(vc) + "&" + vc14 + "&" + vc15
 
 }
 
@@ -121,13 +128,7 @@ const App = () => {
 		return error
 	}
 
-	
-	
-	
-	
-	// document.getElementById('phone').addEventListener('input', function (e) {
-	// 	e.target.value = e.target.value.replace(/[^\dA-Z]/g, '').replace(/(.{4})/g, '$1 ').trim();
-	// });
+
 	return (
 	<div className = { styles }>
 		<Formik
@@ -135,7 +136,8 @@ const App = () => {
 			onSubmit={(values, actions) => {
 				setTimeout(() => {
 					alert(JSON.stringify(values, null, 2))
-					setQr(vcard(values.name, values.surname, values.organization, values.position, values.email, values.phone, values.phone2))
+					setQr(vcard(values.name, values.surname, values.organization, values.position, values.campus, values.email, values.phone, values.phone2))
+					console.log(setQr(vcard(values.name, values.surname, values.organization, values.position, values.campus, values.email, values.phone, values.phone2)))
 					setName(values.name + " " + values.surname)
 					setPosition(values.position)
 					setEmail(values.email)
@@ -149,14 +151,11 @@ const App = () => {
 			{(props) => (
 				<Form className='formContainer'>
 					<Container align='center' className='cardContainer'>
-						{/* <CardHeader> */}
 						<Stack spacing='3vh'>
 							<Stack spacing='1vh'>
 								<Heading size='lg'>Generación de tarjeta virtual</Heading>
 								<Text size='md'>Por favor complete todos los campos para poder generar el QR.</Text>
 							</Stack>
-						{/* </CardHeader> */}
-						{/* <CardBody> */}
 							<VStack spacing='2vh'>
 								<Field name='name' validate={validateName}>
 									{({ field, form }) => (
@@ -261,7 +260,6 @@ const App = () => {
 								</Button>
 							</VStack>
 						</Stack>
-						{/* </CardBody> */}
 					</Container>
 				</Form>
 			)}
