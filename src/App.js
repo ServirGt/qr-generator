@@ -1,19 +1,14 @@
 import React from 'react';
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import {
 	Button,
-	ButtonGroup,
-	Card,
-	CardHeader,
-	CardBody,
-	CardFooter,
 	Container,
 	VStack,
+	HStack,
 	Stack,
 	Input,
 	InputGroup,
 	InputLeftAddon,
-	InputLeftElement,
 	Modal,
 	ModalOverlay,
 	ModalContent,
@@ -24,14 +19,17 @@ import {
 	FormControl,
 	FormLabel,
 	FormErrorMessage,
-	FormHelperText,
 	useDisclosure,
 	Text,
 	Heading,
-	Select
+	Select,
+	Icon
   } from '@chakra-ui/react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import html2canvas from 'html2canvas';
+import { MdEmail, MdOutlinePhoneIphone, MdLocalPhone } from 'react-icons/md'
+import { ImPhone } from 'react-icons/im'
+import { FaPhoneSquareAlt } from 'react-icons/fa'
 import logoCendis from './logoCendis.png'
 import './App.css';
 import styles from './App.css';
@@ -112,6 +110,7 @@ const App = () => {
 	};
 
 
+
 	function validateName(value) {
 		let error
 		if (!value) {
@@ -123,8 +122,12 @@ const App = () => {
 	}
 
 	
-
 	
+	
+	
+	// document.getElementById('phone').addEventListener('input', function (e) {
+	// 	e.target.value = e.target.value.replace(/[^\dA-Z]/g, '').replace(/(.{4})/g, '$1 ').trim();
+	// });
 	return (
 	<div className = { styles }>
 		<Formik
@@ -228,7 +231,7 @@ const App = () => {
 										<FormLabel>Teléfono</FormLabel>						
 										<InputGroup>
 											<InputLeftAddon children='+502' />
-											<Input {...field} placeholder='Teléfono principal'  type='tel' />
+											<Input {...field} placeholder='Teléfono principal'  type='tel' id='phone'/>
 										</InputGroup>
 										<FormErrorMessage>{form.errors.name}</FormErrorMessage>
 									</FormControl>
@@ -269,9 +272,9 @@ const App = () => {
 				<>
 					<Button onClick={onOpen}>Open Modal</Button>
 
-					<Modal isOpen={isOpen} onClose={onClose}>
+					<Modal isOpen={isOpen} onClose={onClose} >
 						<ModalOverlay />
-						<ModalContent>
+						<ModalContent maxW="67.3%">
 							<ModalHeader>
 								Header
 								
@@ -281,23 +284,55 @@ const App = () => {
 								asadasdasdfasfaf
 								<div ref={printRef} className='vcard'>
 									<div className='organizationTitle'>
-										{/* <img src={logoCendis} /> */}
+										<img src={logoCendis} />
 
 									</div>
 
 									<div className='person'>
-										<p className='pName'>{name}</p>
-										<p className='pPosition'>{position}</p>
+										<Text className='pName'>{name}</Text>
+										<HStack spacing='3vw'>
+											<Text className='pPosition'>{position}</Text>
+											<div className='line'></div>
+										</HStack>
 									</div>
 
+
 									<div className='contact'>
-										<p>{phone}</p>
-										<p>{phone2}</p>
-										<p>{email}</p>
+										{/* <div className='nose'>
+											<Icon as={MdOutlinePhoneIphone}  boxSize={7}/>
+											<Text className='testt'>(502) {phone.match(/.{1,4}/g).join(' ')}</Text>
+										</div> */}
+										<Stack spacing='4'>
+											{/* <HStack spacing='3'>
+												<Icon as={MdOutlinePhoneIphone}  boxSize={7}/>
+												<Text className='testt'>(502) {phone.match(/.{1,4}/g).join(' ')}</Text>
+											</HStack> */}
+											<div className='nose'>
+												<Icon as={MdOutlinePhoneIphone}  boxSize={7}/>
+												<Text className='testt'>(502) {phone.match(/.{1,4}/g).join(' ')}</Text>
+											</div>
+											{/* <HStack spacing='3'>
+												<Icon as={MdLocalPhone}  boxSize={7}/>
+												<Text>(502) {phone2.match(/.{1,4}/g).join(' ')}</Text>
+											</HStack> */}
+											<div className='nose'>
+												<Icon as={MdLocalPhone}  boxSize={7}/>
+												<Text className='testt'>(502) {phone2.match(/.{1,4}/g).join(' ')}</Text>
+											</div>
+											{/* <HStack spacing='3'>
+												<Icon as={MdEmail}  boxSize={7}/>
+												<Text>{email}</Text>
+											</HStack> */}
+											<div className='nose'>
+												<Icon as={MdEmail}  boxSize={7}/>
+												<Text className='testt'>{email}</Text>
+											</div>
+										</Stack>
+										
 									</div>
 
 									<div className='qr'>
-										<img src={qr} ref={printRefQR}/>
+										<img src={qr} ref={printRefQR} alt='QR'/>
 									</div>
 
 									<div className='footer'>

@@ -37,42 +37,65 @@ body {
 
 .vcard {
   background-color: #c4cad7;
-  width: 100%;
+  /* width: 100%; */
+  width: 1080px;
+  height: 1920px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
 }
 
 .organizationTitle {
   background-color: #001E61;
-  width: 80%;
-  height: 10vh;
-  border-radius: 0 0 10px 10px;
+  width: 65%;
+  height: 19%;
+  border-radius: 0 0 30px 30px;
   margin-bottom: 8%;
 }
 
 .person {
   /* background-color: #FCC62A; */
-  width: 88%;
+  width: 75%;
 }
 
 .pName {
-  font-size: 25px;
+  font-size: 70px;
   font-weight: bold;
   color: #001E61;
 }
 
 .pPosition {
   color: #001E61;
-  font-size: 18px;
+  font-size: 40px;
 }
 
 .contact {
   margin-top: 10%;
-  width: 88%;
-  font-size: 18px;
+  width: 75%;
+  font-size: 25px;
   color: #001E61;
+  
+}
+
+.line {
+  height: 0.2vh;
+  width: 7vw;
+  background-color: #FCC62A;
+  border-radius: 5px;
+  margin-left: 50px;
+  position: absolute;
+  right: 5.4%;
+  top: 36.5%;
+}
+
+.testt {
+  margin-top: -10px;
+  padding-left: 3%;
+}
+
+.nose {
+  display: flex;
 }
 
 .qr {
@@ -84,15 +107,16 @@ body {
 
 .footer {
   background-color: #001E61;
-  width: 80%;
-  height: 7vh;
+  width: 65%;
+  height: 4%;
+  /* height: 5vh; */
   border-radius: 10px 10px 0 0;
   color: #FCC62A;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 20px;
-  padding-top: 5%;
+  font-size: 1.2vw;
+  /* padding-top: 1%; */
   text-align: center;
-
 }
 
 
