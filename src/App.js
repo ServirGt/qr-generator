@@ -55,7 +55,7 @@ function vcard(name, surname, organization, position, address, email, phone1, ph
 	let vc12 = "URL:https://cendis.com.gt"
 	let vc13 = "END:VCARD"
 	let vc14 = "dark=001E61"
-	let vc15 = "size=400"
+	let vc15 = "size=500"
 
 	let vc = vc2 + "\n" + vc3 + "\n" + vc4 + "\n" + vc5 + "\n" + vc6 + "\n" + vc7 + "\n" + vc8 + "\n" + vc9 + "\n" + vc11 + "\n" + vc12 + "\n" + vc13
 
@@ -227,7 +227,7 @@ const App = () => {
 								<Field name='phone' validate={validateName}>
 									{({ field, form }) => (
 									<FormControl isInvalid={form.errors.name && form.touched.name}>
-										<FormLabel>Teléfono</FormLabel>						
+										<FormLabel>Teléfono principal</FormLabel>						
 										<InputGroup>
 											<InputLeftAddon children='+502' />
 											<Input {...field} placeholder='Teléfono principal'  type='tel' id='phone'/>
@@ -240,10 +240,10 @@ const App = () => {
 								<Field name='phone2' validate={validateName}>
 									{({ field, form }) => (
 									<FormControl isInvalid={form.errors.name && form.touched.name}>
-										<FormLabel>Teléfono 2</FormLabel>
+										<FormLabel>Celular</FormLabel>
 										<InputGroup>
 											<InputLeftAddon children='+502' />
-											<Input {...field} placeholder='Teléfono trabajo'  type='tel' />
+											<Input {...field} placeholder='Teléfono celular o extensión'  type='tel' />
 										</InputGroup>
 										<FormErrorMessage>{form.errors.name}</FormErrorMessage>
 									</FormControl>
@@ -272,7 +272,8 @@ const App = () => {
 
 					<Modal isOpen={isOpen} onClose={onClose} >
 						<ModalOverlay />
-						<ModalContent maxW="67.3%">
+						{/* <ModalContent maxW="67.3%"> */}
+						<ModalContent maxW="fit-content">
 							<ModalHeader>
 								Header
 								
@@ -305,24 +306,24 @@ const App = () => {
 												<Icon as={MdOutlinePhoneIphone}  boxSize={7}/>
 												<Text className='testt'>(502) {phone.match(/.{1,4}/g).join(' ')}</Text>
 											</HStack> */}
-											<div className='nose'>
-												<Icon as={MdOutlinePhoneIphone}  boxSize={7}/>
+											<div className='contactDetail'>
+												<Icon as={MdOutlinePhoneIphone}  boxSize={20}/>
 												<Text className='testt'>(502) {phone.match(/.{1,4}/g).join(' ')}</Text>
 											</div>
 											{/* <HStack spacing='3'>
 												<Icon as={MdLocalPhone}  boxSize={7}/>
 												<Text>(502) {phone2.match(/.{1,4}/g).join(' ')}</Text>
 											</HStack> */}
-											<div className='nose'>
-												<Icon as={MdLocalPhone}  boxSize={7}/>
+											<div className='contactDetail cSpace'>
+												<Icon as={MdLocalPhone}  boxSize={20} className="icon"/>
 												<Text className='testt'>(502) {phone2.match(/.{1,4}/g).join(' ')}</Text>
 											</div>
 											{/* <HStack spacing='3'>
 												<Icon as={MdEmail}  boxSize={7}/>
 												<Text>{email}</Text>
 											</HStack> */}
-											<div className='nose'>
-												<Icon as={MdEmail}  boxSize={7}/>
+											<div className='contactDetail cSpace'>
+												<Icon as={MdEmail}  boxSize={20}/>
 												<Text className='testt'>{email}</Text>
 											</div>
 										</Stack>

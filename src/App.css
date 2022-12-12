@@ -36,13 +36,15 @@ body {
 }
 
 .vcard {
-  background-color: #c4cad7;
+  /* background-color: #c4cad7; */
+  background-color: #ffffff;
   /* width: 100%; */
   width: 1080px;
+  /* width: 67.5rem; */
   height: 1920px;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
+  font-family: 'Avenir Next';
   align-items: center;
 }
 
@@ -60,33 +62,33 @@ body {
 }
 
 .pName {
-  font-size: 70px;
+  font-size: 75px;
   font-weight: bold;
   color: #001E61;
 }
 
 .pPosition {
   color: #001E61;
-  font-size: 40px;
+  font-size: 50px;
 }
 
 .contact {
   margin-top: 10%;
   width: 75%;
-  font-size: 25px;
+  font-size: 50px;
   color: #001E61;
   
 }
 
 .line {
-  height: 0.2vh;
-  width: 7vw;
+  height: 0.5vh;
+  width: 18vw;
   background-color: #FCC62A;
-  border-radius: 5px;
+  border-radius: 5px 0 0 5px;
   margin-left: 50px;
   position: absolute;
-  right: 5.4%;
-  top: 36.5%;
+  right: 2.14%;
+  top: 34%;
 }
 
 .testt {
@@ -94,12 +96,18 @@ body {
   padding-left: 3%;
 }
 
-.nose {
+.contactDetail {
   display: flex;
+  /* background-color: aqua; */
+  align-items: center;
+}
+
+.contactDetail.cSpace {
+  margin-top: 40px;
 }
 
 .qr {
-  border: 3px solid #FCC62A;
+  border: 13px solid #FCC62A;
   border-radius: 5px;
   margin-top: 10%;
   margin-bottom: 10%;
@@ -108,15 +116,16 @@ body {
 .footer {
   background-color: #001E61;
   width: 65%;
-  height: 4%;
+  height: 6%;
   /* height: 5vh; */
-  border-radius: 10px 10px 0 0;
+  border-radius: 30px 30px 0 0;
   color: #FCC62A;
-  font-weight: 400;
-  font-size: 20px;
-  font-size: 1.2vw;
+  font-weight: 500;
+  font-size: 50px;
   /* padding-top: 1%; */
   text-align: center;
 }
 
-
+.icon {
+  color: #FCC62A;
+}
