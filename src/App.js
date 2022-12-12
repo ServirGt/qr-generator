@@ -283,7 +283,7 @@ const App = () => {
 								asadasdasdfasfaf
 								<div ref={printRef} className='vcard'>
 									<div className='organizationTitle'>
-										<img src={logoCendis} />
+										<img src={logoCendis} alt='logo Cendis' />
 
 									</div>
 
@@ -336,7 +336,7 @@ const App = () => {
 
 									<div className='footer'>
 										<p>
-											cendis.com.gt
+											<a href='cendis.com.gt'>cendis.com.gt</a>
 										</p>
 									</div>
 								</div>

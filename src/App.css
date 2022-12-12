@@ -54,6 +54,7 @@ body {
   height: 19%;
   border-radius: 0 0 30px 30px;
   margin-bottom: 8%;
+  padding-top: 3%;
 }
 
 .person {
@@ -92,8 +93,8 @@ body {
 }
 
 .testt {
-  margin-top: -10px;
-  padding-left: 3%;
+  margin-top: -50px;
+  margin-left: 3%;
 }
 
 .contactDetail {
