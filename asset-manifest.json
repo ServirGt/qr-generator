@@ -1,16 +1,17 @@
 {
   "files": {
-    "main.css": "/qr-generator/static/css/main.99f43755.css",
-    "main.js": "/qr-generator/static/js/main.8f0eafab.js",
+    "main.css": "/qr-generator/static/css/main.97b56e88.css",
+    "main.js": "/qr-generator/static/js/main.d6a12a40.js",
     "static/js/787.69b45946.chunk.js": "/qr-generator/static/js/787.69b45946.chunk.js",
     "static/media/logoCendis.png": "/qr-generator/static/media/logoCendis.441ffdbb77626cb69ba2.png",
+    "static/media/logoServir.png": "/qr-generator/static/media/logoServir.383776961610b9b8ca5b.png",
     "index.html": "/qr-generator/index.html",
-    "main.99f43755.css.map": "/qr-generator/static/css/main.99f43755.css.map",
-    "main.8f0eafab.js.map": "/qr-generator/static/js/main.8f0eafab.js.map",
+    "main.97b56e88.css.map": "/qr-generator/static/css/main.97b56e88.css.map",
+    "main.d6a12a40.js.map": "/qr-generator/static/js/main.d6a12a40.js.map",
     "787.69b45946.chunk.js.map": "/qr-generator/static/js/787.69b45946.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.99f43755.css",
-    "static/js/main.8f0eafab.js"
+    "static/css/main.97b56e88.css",
+    "static/js/main.d6a12a40.js"
   ]
 }
