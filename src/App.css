@@ -9,6 +9,24 @@ body {
   animation: gradient 15s ease infinite !important;
 }
 
+@font-face {
+  font-family: AvenirNext;
+  src: url(AvenirNextLTPro-Regular.otf);
+}
+
+@font-face {
+  font-family: AvenirNext;
+  src: url(AvenirNextLTPro-Bold.otf);
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: AvenirNext;
+  src: url(avenir-next-medium.ttf);
+  font-weight: 500;
+}
+
+
 @keyframes gradient {
   0% {
     background-position: 0% 50%;
@@ -36,16 +54,35 @@ body {
 }
 
 .vcard {
-  /* background-color: #c4cad7; */
   background-color: #ffffff;
-  /* width: 100%; */
+  /* background-color: #c4cad7; */
   width: 1080px;
-  /* width: 67.5rem; */
+  /* width: 64.3vw; */
   height: 1920px;
+  /* height: 198vh; */
   display: flex;
   flex-direction: column;
-  font-family: 'Avenir Next';
+  font-family: AvenirNext;
   align-items: center;
+}
+
+.vcardCon {
+  /* background:black;
+  background:rgba(0,0,0,0.8);
+
+  filter:blur(4px);
+  -o-filter:blur(4px);
+  -ms-filter:blur(4px);
+  -moz-filter:blur(4px);
+  -webkit-filter:blur(4px);
+  height: 2%;
+  overflow: hidden; */
+  /* transform: scale(0.3); */
+  /* transform-origin: left; */
+  /* overflow: scroll; */
+  /* transform: scale(0.5); */
+  /* transform-origin: top left; */
+  /* position: absolute; */
 }
 
 .organizationTitle {
@@ -55,6 +92,26 @@ body {
   border-radius: 0 0 30px 30px;
   margin-bottom: 8%;
   padding-top: 3%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.organizationTitleSer {
+  background-color: #EDF1F4;
+  width: 65%;
+  height: 19%;
+  border-radius: 0 0 30px 30px;
+  margin-bottom: 8%;
+  /* padding-top: 3%; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.servirLogo {
+  width: 70%;
+  height: 70%;
 }
 
 .person {
@@ -64,6 +121,7 @@ body {
 
 .pName {
   font-size: 75px;
+  /* font-size: 4.46vw; */
   font-weight: bold;
   color: #001E61;
 }
@@ -71,12 +129,14 @@ body {
 .pPosition {
   color: #001E61;
   font-size: 50px;
+  /* font-size: 2.98vw; */
 }
 
 .contact {
   margin-top: 10%;
   width: 75%;
   font-size: 50px;
+  /* font-size: 2.98vw; */
   color: #001E61;
   
 }
@@ -86,7 +146,18 @@ body {
   width: 18vw;
   background-color: #FCC62A;
   border-radius: 5px 0 0 5px;
-  margin-left: 50px;
+  margin-left: 2.98vw;
+  position: absolute;
+  right: 2.14%;
+  top: 34%;
+}
+
+.lineSer {
+  height: 0.5vh;
+  width: 18vw;
+  background-color: #2566FF;
+  border-radius: 5px 0 0 5px;
+  margin-left: 2.98vw;
   position: absolute;
   right: 2.14%;
   top: 34%;
@@ -109,6 +180,15 @@ body {
 
 .qr {
   border: 13px solid #FCC62A;
+  /* border: 0.8vw solid #FCC62A; */
+  border-radius: 5px;
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
+
+.qrSer {
+  border: 13px solid #2566FF;
+  /* border: 0.8vw solid #FCC62A; */
   border-radius: 5px;
   margin-top: 10%;
   margin-bottom: 10%;
@@ -121,12 +201,67 @@ body {
   /* height: 5vh; */
   border-radius: 30px 30px 0 0;
   color: #FCC62A;
-  font-weight: 500;
+  /* font-weight: 00; */
   font-size: 50px;
+  /* font-size: 2.98vw; */
   /* padding-top: 1%; */
   text-align: center;
 }
 
-.icon {
+.ah {
+  font-weight: 500;
+}
+
+.footerSer {
+  background-color: #EDF1F4;
+  width: 65%;
+  height: 6%;
+  /* height: 5vh; */
+  border-radius: 30px 30px 0 0;
   color: #FCC62A;
+  font-weight: 500;
+  font-size: 50px;
+  /* font-size: 2.98vw; */
+  /* padding-top: 1%; */
+  text-align: center;
+}
+
+
+
+
+@media only screen and (max-width: 768px) {
+  /* #chakra-modal-mymodal {
+    height:85%;
+    max-width:85%;
+    width: 90%;
+    max-width: 90%; 
+    overflow: scroll; 
+  } */
+
+  /* .vcardCon {
+    transform: scale(0.28);
+    transform-origin: top left;
+  } */
+
+  .vcard {
+    width: 100%;
+    height: 900.26px;
+  }
+
+  .organizationTitle {
+    border-radius: 0 0 15px 15px;
+  }
+
+  .pName {
+    font-size: 23px;
+  }
+
+  .pPosition {
+    font-size: 50px;
+  }
+  
+  .contact { 
+    font-size: 50px;
+    
+  }
 }

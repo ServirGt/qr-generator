@@ -23,12 +23,14 @@ import {
 	Text,
 	Heading,
 	Select,
-	Icon
+	Icon,
+	// VisuallyHidden
   } from '@chakra-ui/react';
 import { Formik, Form, Field } from 'formik';
 import html2canvas from 'html2canvas';
 import { MdEmail, MdOutlinePhoneIphone, MdLocalPhone } from 'react-icons/md'
 import logoCendis from './logoCendis.png'
+import logoServir from './logoServir.png'
 import './App.css';
 import styles from './App.css';
 
@@ -75,18 +77,40 @@ const App = () => {
 	const [phone, setPhone] = useState("");
 	const [phone2, setPhone2] = useState("");
 	const [email, setEmail] = useState("");
-	const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: true })
+	const [organization, setOrganization] = useState("");
+	const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: true, scale: Math.min(window.devicePixelRatio, 2)})
 
 	const handleDownloadImage = async () => {
 		const element = printRef.current;
+		// element.style.transform = 'scale(0.28)';
 		const canvas = await html2canvas(element,  { useCORS: true });
 	
-		const data = canvas.toDataURL('image/jpg');
+		const data = canvas.toDataURL('image/png');
 		const link = document.createElement('a');
 	
 		if (typeof link.download === 'string') {
 			link.href = data;
-			link.download = 'image.jpg';
+			link.download = 'vcard.png';
+	
+			document.body.appendChild(link);
+			link.click();
+			document.body.removeChild(link);
+		} else {
+			window.open(data);
+		}
+	};
+
+
+	const handleDownloadPDF = async () => {
+		const element = printRef.current;
+		const canvas = await html2canvas(element,  { useCORS: true });
+	
+		const data = canvas.toDataURL('document/pdf');
+		const link = document.createElement('a');
+	
+		if (typeof link.download === 'string') {
+			link.href = data;
+			link.download = 'vcard.pdf';
 	
 			document.body.appendChild(link);
 			link.click();
@@ -135,10 +159,11 @@ const App = () => {
 			initialValues={{ name: '' }}
 			onSubmit={(values, actions) => {
 				setTimeout(() => {
-					alert(JSON.stringify(values, null, 2))
+					// alert(JSON.stringify(values, null, 2))
 					setQr(vcard(values.name, values.surname, values.organization, values.position, values.campus, values.email, values.phone, values.phone2))
-					console.log(setQr(vcard(values.name, values.surname, values.organization, values.position, values.campus, values.email, values.phone, values.phone2)))
+					// console.log(setQr(vcard(values.name, values.surname, values.organization, values.position, values.campus, values.email, values.phone, values.phone2)))
 					setName(values.name + " " + values.surname)
+					setOrganization(values.organization)
 					setPosition(values.position)
 					setEmail(values.email)
 					setPhone(values.phone)
@@ -240,7 +265,7 @@ const App = () => {
 								<Field name='phone2' validate={validateName}>
 									{({ field, form }) => (
 									<FormControl isInvalid={form.errors.name && form.touched.name}>
-										<FormLabel>Celular</FormLabel>
+										<FormLabel>Celular/Extensión</FormLabel>
 										<InputGroup>
 											<InputLeftAddon children='+502' />
 											<Input {...field} placeholder='Teléfono celular o extensión'  type='tel' />
@@ -270,75 +295,149 @@ const App = () => {
 				<>
 					<Button onClick={onOpen}>Open Modal</Button>
 
-					<Modal isOpen={isOpen} onClose={onClose} >
+					<Modal isOpen={isOpen} onClose={onClose} id='mymodal'>
 						<ModalOverlay />
 						{/* <ModalContent maxW="67.3%"> */}
-						<ModalContent maxW="fit-content">
+						{/* <ModalContent maxW="fit-content"> */}
+						<ModalContent maxH='fit-content' maxW='fit-content'>
 							<ModalHeader>
-								Header
-								
+								¡Su VCard esta lista!
 							</ModalHeader>
 							<ModalCloseButton />
 							<ModalBody>
-								asadasdasdfasfaf
-								<div ref={printRef} className='vcard'>
-									<div className='organizationTitle'>
-										<img src={logoCendis} alt='logo Cendis' />
+								Navegue hacia abajo para descargar tanto la VCard como el QR.
+								<div className='vcardCon'>
+								{/* <VisuallyHidden> */}
+									<div ref={printRef} className='vcard'>
+										{
+											organization === "Cendis" ?
+												<>
+												<div className='organizationTitle'>
+													<img src={logoCendis} alt='logo Cendis' />
+												</div>
+												
+												<div className='person'>
+													<b><Text className='pName'>{name}</Text></b>
+													<HStack spacing='3vw'>
+														<Text className='pPosition'>{position}</Text>
+														<div className='line'></div>
+													</HStack>
+												</div>
 
-									</div>
 
-									<div className='person'>
-										<Text className='pName'>{name}</Text>
-										<HStack spacing='3vw'>
-											<Text className='pPosition'>{position}</Text>
-											<div className='line'></div>
-										</HStack>
-									</div>
+												<div className='contact'>
+													<Stack spacing='4'>
+														<div className='contactDetail'>
+															<Icon as={MdOutlinePhoneIphone}  boxSize={20}/>
+															<Text className='testt'>(502) {phone.match(/.{1,4}/g).join(' ')}</Text>
+														</div>
+														<div className='contactDetail cSpace'>
+															<Icon as={MdLocalPhone}  boxSize={20}/>
+															<Text className='testt'>(502) {phone2.match(/.{1,4}/g).join(' ')}</Text>
+														</div>
+														<div className='contactDetail cSpace'>
+															<Icon as={MdEmail}  boxSize={20}/>
+															<Text className='testt'>{email}</Text>
+														</div>
+													</Stack>
+												</div>
+
+												<div className='qr'>
+													<img src={qr} ref={printRefQR} alt='QR' className='qrImage'/>
+												</div>
+
+												<div className='footer'>
+													<p className='ah'>
+														<a href='cendis.com.gt'>cendis.com.gt</a>
+													</p>
+												</div>
+												</>
+
+											:
+											<>
+											<div className='organizationTitleSer'>
+												<img src={logoServir} alt='logo Servir' className='servirLogo'/>
+											</div>
+
+											<div className='person'>
+												<Text className='pName'>{name}</Text>
+												<HStack spacing='3vw'>
+													<Text className='pPosition'>{position}</Text>
+													<div className='lineSer'></div>
+												</HStack>
+											</div>
 
 
-									<div className='contact'>
-										{/* <div className='nose'>
-											<Icon as={MdOutlinePhoneIphone}  boxSize={7}/>
-											<Text className='testt'>(502) {phone.match(/.{1,4}/g).join(' ')}</Text>
+											<div className='contact'>
+												<Stack spacing='4'>
+													<div className='contactDetail'>
+														<Icon as={MdOutlinePhoneIphone}  boxSize={20}/>
+														<Text className='testt'>(502) {phone.match(/.{1,4}/g).join(' ')}</Text>
+													</div>
+													<div className='contactDetail cSpace'>
+														<Icon as={MdLocalPhone}  boxSize={20}/>
+														<Text className='testt'>(502) {phone2.match(/.{1,4}/g).join(' ')}</Text>
+													</div>
+													<div className='contactDetail cSpace'>
+														<Icon as={MdEmail}  boxSize={20}/>
+														<Text className='testt'>{email}</Text>
+													</div>
+												</Stack>
+												
+											</div>
+
+											<div className='qrSer'>
+												<img src={qr} ref={printRefQR} alt='QR' className='qrImage'/>
+											</div>
+
+											<div className='footerSer'>
+												{/* <p>
+													<a href='cendis.com.gt'>cendis.com.gt</a>
+												</p> */}
+											</div>
+											</>
+
+
+										}
+
+										{/* <div className='person'>
+											<Text className='pName'>{name}</Text>
+											<HStack spacing='3vw'>
+												<Text className='pPosition'>{position}</Text>
+												<div className='line'></div>
+											</HStack>
+										</div>
+
+
+										<div className='contact'>
+											<Stack spacing='4'>
+												<div className='contactDetail'>
+													<Icon as={MdOutlinePhoneIphone}  boxSize={20}/>
+													<Text className='testt'>(502) {phone.match(/.{1,4}/g).join(' ')}</Text>
+												</div>
+												<div className='contactDetail cSpace'>
+													<Icon as={MdLocalPhone}  boxSize={20}/>
+													<Text className='testt'>(502) {phone2.match(/.{1,4}/g).join(' ')}</Text>
+												</div>
+												<div className='contactDetail cSpace'>
+													<Icon as={MdEmail}  boxSize={20}/>
+													<Text className='testt'>{email}</Text>
+												</div>
+											</Stack>
+											
+										</div>
+
+										<div className='qr'>
+											<img src={qr} ref={printRefQR} alt='QR' className='qrImage'/>
+										</div>
+
+										<div className='footer'>
+											<p>
+												<a href='cendis.com.gt'>cendis.com.gt</a>
+											</p>
 										</div> */}
-										<Stack spacing='4'>
-											{/* <HStack spacing='3'>
-												<Icon as={MdOutlinePhoneIphone}  boxSize={7}/>
-												<Text className='testt'>(502) {phone.match(/.{1,4}/g).join(' ')}</Text>
-											</HStack> */}
-											<div className='contactDetail'>
-												<Icon as={MdOutlinePhoneIphone}  boxSize={20}/>
-												<Text className='testt'>(502) {phone.match(/.{1,4}/g).join(' ')}</Text>
-											</div>
-											{/* <HStack spacing='3'>
-												<Icon as={MdLocalPhone}  boxSize={7}/>
-												<Text>(502) {phone2.match(/.{1,4}/g).join(' ')}</Text>
-											</HStack> */}
-											<div className='contactDetail cSpace'>
-												<Icon as={MdLocalPhone}  boxSize={20} className="icon"/>
-												<Text className='testt'>(502) {phone2.match(/.{1,4}/g).join(' ')}</Text>
-											</div>
-											{/* <HStack spacing='3'>
-												<Icon as={MdEmail}  boxSize={7}/>
-												<Text>{email}</Text>
-											</HStack> */}
-											<div className='contactDetail cSpace'>
-												<Icon as={MdEmail}  boxSize={20}/>
-												<Text className='testt'>{email}</Text>
-											</div>
-										</Stack>
-										
 									</div>
-
-									<div className='qr'>
-										<img src={qr} ref={printRefQR} alt='QR'/>
-									</div>
-
-									<div className='footer'>
-										<p>
-											<a href='cendis.com.gt'>cendis.com.gt</a>
-										</p>
-									</div>
+								{/* </VisuallyHidden> */}
 								</div>
 							</ModalBody>
 
@@ -347,12 +446,15 @@ const App = () => {
 									Close
 								</Button> */}
 								<Button colorScheme='blue' mr={3} onClick={handleDownloadImage}>
-									Descargar VCard
+									Descargar VCard (png)
+								</Button>
+								<Button colorScheme='blue' mr={3} onClick={handleDownloadPDF}>
+									Descargar VCard (pdf)
 								</Button>
 								<Button variant='ghost' onClick={handleDownloadQR}>Descargar QR</Button>
 							</ModalFooter>
 						</ModalContent>
-					</Modal>
+					</Modal> 
 				</>
 			: <></>
 		}
