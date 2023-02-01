@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
 	Button,
 	Container,
@@ -24,7 +24,7 @@ import {
 	Heading,
 	Select,
 	Icon,
-	// VisuallyHidden
+	VisuallyHidden
   } from '@chakra-ui/react';
 import { Formik, Form, Field } from 'formik';
 import html2canvas from 'html2canvas';
@@ -33,6 +33,9 @@ import logoCendis from './logoCendis.png'
 import logoServir from './logoServir.png'
 import './App.css';
 import styles from './App.css';
+
+
+
 
 
 function vcard(name, surname, organization, position, address, email, phone1, phone2){
@@ -79,6 +82,21 @@ const App = () => {
 	const [email, setEmail] = useState("");
 	const [organization, setOrganization] = useState("");
 	const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: true, scale: Math.min(window.devicePixelRatio, 2)})
+
+
+	useEffect(() => {
+		const script = document.createElement('script');
+	  
+		script.src = "https://teams.microsoft.com/share/launcher.js";
+		script.async = true;
+		script.defer = true;
+	  
+		document.body.appendChild(script);
+	  
+		return () => {
+		  document.body.removeChild(script);
+		}
+	  }, []);
 
 	const handleDownloadImage = async () => {
 		const element = printRef.current;
@@ -289,13 +307,16 @@ const App = () => {
 				</Form>
 			)}
 		</Formik>
+		<div className='mobile-message'>
+			<Heading>Por favor, ingrese desde una computadora o laptop para generar su tarjeta virtual.</Heading>
+		</div>
 
 		{
 			url ? 
 				<>
-					<Button onClick={onOpen}>Open Modal</Button>
+					{/* <Button onClick={onOpen}>Open Modal</Button> */}
 
-					<Modal isOpen={isOpen} onClose={onClose} id='mymodal'>
+					<Modal isOpen={isOpen} id='mymodal' isCentered>
 						<ModalOverlay />
 						{/* <ModalContent maxW="67.3%"> */}
 						{/* <ModalContent maxW="fit-content"> */}
@@ -307,7 +328,7 @@ const App = () => {
 							<ModalBody>
 								Navegue hacia abajo para descargar tanto la VCard como el QR.
 								<div className='vcardCon'>
-								{/* <VisuallyHidden> */}
+								<VisuallyHidden>
 									<div ref={printRef} className='vcard'>
 										{
 											organization === "Cendis" ?
@@ -347,7 +368,7 @@ const App = () => {
 												</div>
 
 												<div className='footer'>
-													<p className='ah'>
+													<p>
 														<a href='cendis.com.gt'>cendis.com.gt</a>
 													</p>
 												</div>
@@ -437,7 +458,7 @@ const App = () => {
 											</p>
 										</div> */}
 									</div>
-								{/* </VisuallyHidden> */}
+								</VisuallyHidden>
 								</div>
 							</ModalBody>
 
@@ -452,6 +473,11 @@ const App = () => {
 									Descargar VCard (pdf)
 								</Button>
 								<Button variant='ghost' onClick={handleDownloadQR}>Descargar QR</Button>
+								<div
+									className="teams-share-button"
+									data-href="https://support.apple.com/en-us/HT201196"
+									data-icon-px-size="64">
+								</div>
 							</ModalFooter>
 						</ModalContent>
 					</Modal> 
