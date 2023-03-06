@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/qr-generator/static/css/main.7a9e2218.css",
-    "main.js": "/qr-generator/static/js/main.fa302e14.js",
+    "main.css": "/qr-generator/static/css/main.bd3fbad4.css",
+    "main.js": "/qr-generator/static/js/main.51798d45.js",
     "static/js/787.69b45946.chunk.js": "/qr-generator/static/js/787.69b45946.chunk.js",
     "static/media/avenir-next-medium.ttf": "/qr-generator/static/media/avenir-next-medium.588a49f7b67ee2dc6147.ttf",
     "static/media/logoCendis.png": "/qr-generator/static/media/logoCendis.441ffdbb77626cb69ba2.png",
@@ -9,12 +9,12 @@
     "static/media/AvenirNextLTPro-Bold.otf": "/qr-generator/static/media/AvenirNextLTPro-Bold.711a4eb654bf1139f123.otf",
     "static/media/AvenirNextLTPro-Regular.otf": "/qr-generator/static/media/AvenirNextLTPro-Regular.94f2f163d4b698242fef.otf",
     "index.html": "/qr-generator/index.html",
-    "main.7a9e2218.css.map": "/qr-generator/static/css/main.7a9e2218.css.map",
-    "main.fa302e14.js.map": "/qr-generator/static/js/main.fa302e14.js.map",
+    "main.bd3fbad4.css.map": "/qr-generator/static/css/main.bd3fbad4.css.map",
+    "main.51798d45.js.map": "/qr-generator/static/js/main.51798d45.js.map",
     "787.69b45946.chunk.js.map": "/qr-generator/static/js/787.69b45946.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.7a9e2218.css",
-    "static/js/main.fa302e14.js"
+    "static/css/main.bd3fbad4.css",
+    "static/js/main.51798d45.js"
   ]
 }
