@@ -328,7 +328,7 @@ const App = () => {
 							<ModalBody>
 								Navegue hacia abajo para descargar tanto la VCard como el QR.
 								<div className='vcardCon'>
-								<VisuallyHidden>
+								{/* <VisuallyHidden> */}
 									<div ref={printRef} className='vcard'>
 										{
 											organization === "Cendis" ?
@@ -392,11 +392,11 @@ const App = () => {
 											<div className='contact'>
 												<Stack spacing='4'>
 													<div className='contactDetail'>
-														<Icon as={MdOutlinePhoneIphone}  boxSize={20}/>
+														<Icon as={MdLocalPhone} boxSize={20}/>
 														<Text className='testt'>(502) {phone.match(/.{1,4}/g).join(' ')}</Text>
 													</div>
 													<div className='contactDetail cSpace'>
-														<Icon as={MdLocalPhone}  boxSize={20}/>
+														<Icon as={MdOutlinePhoneIphone} boxSize={20}/>
 														<Text className='testt'>(502) {phone2.match(/.{1,4}/g).join(' ')}</Text>
 													</div>
 													<div className='contactDetail cSpace'>
@@ -458,7 +458,7 @@ const App = () => {
 											</p>
 										</div> */}
 									</div>
-								</VisuallyHidden>
+								{/* </VisuallyHidden> */}
 								</div>
 							</ModalBody>
 
@@ -469,15 +469,10 @@ const App = () => {
 								<Button colorScheme='blue' mr={3} onClick={handleDownloadImage}>
 									Descargar VCard (png)
 								</Button>
-								<Button colorScheme='blue' mr={3} onClick={handleDownloadPDF}>
+								<Button colorScheme='blue' mr={3} onClick={handleDownloadPDF} disabled>
 									Descargar VCard (pdf)
 								</Button>
 								<Button variant='ghost' onClick={handleDownloadQR}>Descargar QR</Button>
-								<div
-									className="teams-share-button"
-									data-href="https://support.apple.com/en-us/HT201196"
-									data-icon-px-size="64">
-								</div>
 							</ModalFooter>
 						</ModalContent>
 					</Modal> 

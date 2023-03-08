@@ -56,11 +56,11 @@ body {
 .vcard {
   background-color: #ffffff;
   /* background-color: #c4cad7; */
-  width: 1080px;
-  width: 64.3vw;
+  width: 1100px;
+  /* width: 64.3vw; */
   /* width: 64.3vw; */
   /* height: 1920px; */
-  aspect-ratio: 9/16;
+  /* aspect-ratio: 9/16; */
   /* height: 198vh; */
   display: flex;
   flex-direction: column;
@@ -168,6 +168,7 @@ body {
 .testt {
   margin-top: -50px;
   margin-left: 3%;
+  margin-right: 5%;
 }
 
 .contactDetail {
